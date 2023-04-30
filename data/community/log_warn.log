@@ -1,1 +1,1 @@
-2023-03-19 15:11:22,005 WARN [main] c.n.c.LoggerTests [LoggerTests.java:23] warn log
+2023-04-19 20:16:50,021 WARN [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Cannot deserialize session attribute [SPRING_SECURITY_CONTEXT] for session [BF6961740E14E72FE06CA1189D248C5B]

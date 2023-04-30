@@ -72,4 +72,5 @@ public class CommunityApplicationTests implements ApplicationContextAware {
 		System.out.println(simpleDateFormat);
 	}
 
+
 }
