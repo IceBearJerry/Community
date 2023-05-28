@@ -5,11 +5,14 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.nowcoder.community.dao.DiscussPostMapper;
 import com.nowcoder.community.entity.DiscussPost;
+import com.nowcoder.community.entity.User;
+import com.nowcoder.community.util.RedisUtil;
 import com.nowcoder.community.util.SensitiveFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -30,11 +33,15 @@ public class DiscussPostService {
     @Autowired
     private SensitiveFilter sensitiveFilter;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @Value("${caffeine.posts.max-size}")
     private int maxSize;
 
     @Value("${caffeine.posts.expire-seconds}")
     private int expireSeconds;
+
 
     // Caffeine核心接口: Cache, LoadingCache, AsyncLoadingCache
 
@@ -101,6 +108,7 @@ public class DiscussPostService {
         }
         logger.debug("load post rows from DB.");
         return discussPostMapper.selectDiscussPostRows(userId);
+
     }
 
     public int addDiscussPost(DiscussPost post) {
@@ -117,6 +125,7 @@ public class DiscussPostService {
 
         return discussPostMapper.insertDiscussPost(post);
     }
+
 
     public DiscussPost findDiscussPostById(int id) {
         return discussPostMapper.selectDiscussPostById(id);
